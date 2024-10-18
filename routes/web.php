@@ -15,4 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+
+Route::resource('data-points', App\Http\Controllers\DataPointController::class)->only('index');
+Route::resource('data-points', App\Http\Controllers\DataPointController::class)->only('index', 'create', 'store');
