@@ -24,6 +24,8 @@ class DataPointStoreRequest extends FormRequest
             'latitude' => ['required', 'string'],
             'longitude' => ['required', 'string'],
             'reportedCases' => ['required', 'integer'],
+            'villageName' => ['required', 'string'],
+            'population' => ['required', 'string'],
             'activeStatus' => ['required'],
         ];
     }

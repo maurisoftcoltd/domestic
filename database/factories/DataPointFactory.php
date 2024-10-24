@@ -23,8 +23,10 @@ class DataPointFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'latitude' => $this->faker->latitude(),
-            'longtitude' => $this->faker->word(),
+            'longitude' => $this->faker->longitude(),
             'reportedCases' => $this->faker->numberBetween(-10000, 10000),
+            'villageName' => $this->faker->word(),
+            'population' => $this->faker->word(),
             'activeStatus' => $this->faker->boolean(),
         ];
     }

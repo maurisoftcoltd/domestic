@@ -17,8 +17,10 @@ class DataPoint extends Model
     protected $fillable = [
         'name',
         'latitude',
-        'longtitude',
+        'longitude',
         'reportedCases',
+        'villageName',
+        'population',
         'activeStatus',
     ];
 

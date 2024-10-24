@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DataPointController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +19,9 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::resource('data-points', App\Http\Controllers\DataPointController::class)->only('index');
+
+Route::get('get_all_data_points', [DataPointController::class, 'get_all_data_points'])->name('get_all_data_points');
+
+
+Route::get('data-points/delete', [App\Http\Controllers\DataPointController::class, 'delete']);
 Route::resource('data-points', App\Http\Controllers\DataPointController::class)->only('index', 'create', 'store');

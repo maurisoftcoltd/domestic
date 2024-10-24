@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('latitude');
             $table->string('longitude');
             $table->integer('reportedCases');
+            $table->string('villageName');
+            $table->integer('population');
             $table->boolean('activeStatus');
             $table->timestamps();
         });

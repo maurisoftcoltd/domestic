@@ -1,3 +1,44 @@
+
+
+    public function get_data_points() : JsonResponse
+    {
+
+        // "town-91661": {
+        //     value: "9825",
+        //     latitude: 10.60233681855024,
+        //     longitude: -61.339582771151186,
+        //     href: "#",
+        //     tooltip: {
+        //         content:
+        //             '<span style="font-weight:bold;">Villebon-sur-Yvette (91661)</span><br />Population : 9825',
+        //     },
+        // },
+
+        $data = [];
+        $dataPoints = DataPoint::where('active',1)->get();
+
+        foreach($dataPoints as $dataPoint) {
+            $point["$dataPoint->name"] = [
+                'value' => $dataPoint->reportedCases,
+                'latitude' => $dataPoint->latitude,
+                'longitude' => $dataPoint->longitude,
+                'href' => '#',
+                'tooltip' => [
+                    'content' => '<span style="font-weight:bold;">'. $dataPoint->villageName .'</span><br />Population : '. $dataPoint->population
+                ]
+            ];
+        }
+
+        return response()->json($data);
+    }
+
+
+
+
+
+
+
+
 @include('partials.top')
 
 <div class="col-md-12">
@@ -31,11 +72,16 @@
                 </div>
                 <div class="form-group">
                     <label>Longitude</label>
-                    <input name="longitude" value="{{ old('longitude') }}" type="text" class="form-control" placeholder="Longitude">
+                    <input name="longitude" value="{{ old('longitude') }}" type="number" min="1" class="form-control" placeholder="Longitude">
                 </div>
                 <div class="form-group">
                     <label>Reported Cases</label>
                     <input name="reportedCases" value="{{ old('reportedCases') }}" type="number" min="1" class="form-control" placeholder="Reported Cases">
+                </div>
+
+                <div class="form-group">
+                    <label>Content</label>
+                    <input name="content" value="{{ old('content') }}" type="text" class="form-control" placeholder="Content">
                 </div>
 
                 <div class="form-group">

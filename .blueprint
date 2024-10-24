@@ -1,14 +1,15 @@
 created:
     - app/Http/Controllers/DataPointController.php
     - database/factories/DataPointFactory.php
-    - database/migrations/2024_10_18_192628_create_data_points_table.php
+    - database/migrations/2024_10_24_181748_create_data_points_table.php
     - app/Models/DataPoint.php
     - tests/Feature/Http/Controllers/DataPointControllerTest.php
     - app/Http/Requests/DataPointStoreRequest.php
-    - resources/views/dataPoint/index.blade.php
     - resources/views/dataPoint/create.blade.php
 updated:
     - routes/web.php
+skipped:
+    - resources/views/dataPoint/index.blade.php
 models:
     User: { name: string, email: string, email_verified_at: 'timestamp nullable', password: string, remember_token: 'string:100 nullable' }
-    DataPoint: { name: string, latitude: string, longtitude: string, reportedCases: integer, activeStatus: boolean }
+    DataPoint: { name: string, latitude: string, longitude: string, reportedCases: integer, villageName: string, population: unsigned, activeStatus: boolean }

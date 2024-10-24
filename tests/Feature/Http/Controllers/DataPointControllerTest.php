@@ -54,27 +54,42 @@ final class DataPointControllerTest extends TestCase
     {
         $name = $this->faker->name();
         $latitude = $this->faker->latitude();
-        $longtitude = $this->faker->word();
+        $longitude = $this->faker->longitude();
         $reportedCases = $this->faker->numberBetween(-10000, 10000);
+        $villageName = $this->faker->word();
+        $population = $this->faker->word();
         $activeStatus = $this->faker->boolean();
 
         $response = $this->post(route('data-points.store'), [
             'name' => $name,
             'latitude' => $latitude,
-            'longtitude' => $longtitude,
+            'longitude' => $longitude,
             'reportedCases' => $reportedCases,
+            'villageName' => $villageName,
+            'population' => $population,
             'activeStatus' => $activeStatus,
         ]);
 
         $dataPoints = DataPoint::query()
             ->where('name', $name)
             ->where('latitude', $latitude)
-            ->where('longtitude', $longtitude)
+            ->where('longitude', $longitude)
             ->where('reportedCases', $reportedCases)
+            ->where('villageName', $villageName)
+            ->where('population', $population)
             ->where('activeStatus', $activeStatus)
             ->get();
         $this->assertCount(1, $dataPoints);
         $dataPoint = $dataPoints->first();
+
+        $response->assertRedirect(route('dataPoint.index'));
+    }
+
+
+    #[Test]
+    public function delete_redirects(): void
+    {
+        $response = $this->get(route('data-points.delete'));
 
         $response->assertRedirect(route('dataPoint.index'));
     }
