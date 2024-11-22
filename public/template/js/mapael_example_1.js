@@ -2,6 +2,7 @@ $(function () {
     "use strict";
 
     let plotData = $.get($(".mapael-example-1").data('url'), function(data) {
+        console.log(data);
         if ($(".mapael-example-1").length) {
             $(".mapael-example-1").mapael({
                 map: {
@@ -35,40 +36,40 @@ $(function () {
                             {
                                 size: 5,
                                 type: "circle",
-                                max: 20000,
+                                max: 10,
                                 attrs: {
                                     fill: "#89ff72",
                                 },
-                                label: "< 20,000",
+                                label: "< 10",
                             },
                             {
                                 size: 15,
                                 type: "circle",
-                                min: 20000,
-                                max: 100000,
+                                min: 10,
+                                max: 50,
                                 attrs: {
                                     fill: "#fffd72",
                                 },
-                                label: "20,000 - 100,000",
+                                label: "10 - 50",
                             },
                             {
                                 size: 20,
                                 type: "circle",
-                                min: 100000,
-                                max: 200000,
+                                min: 50,
+                                max: 100,
                                 attrs: {
                                     fill: "#ffbd54",
                                 },
-                                label: "100,000 - 200,000",
+                                label: "50 - 100",
                             },
                             {
                                 size: 25,
                                 type: "circle",
-                                min: 200000,
+                                min: 100,
                                 attrs: {
                                     fill: "#ff5454",
                                 },
-                                label: "200,000+",
+                                label: "100+",
                             },
                         ],
                     },

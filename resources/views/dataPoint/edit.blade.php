@@ -21,7 +21,7 @@
 
                 <div class="form-group">
                     <label>Date</label>
-                    <input name="date" value="{{ old('date') ?? $dataPoint->date }}" type="date" class="form-control" placeholder="Date" required>
+                    <input name="date" value="{{ old('date') ?? $dataPoint->date->toDateString() }}" type="date" class="form-control" placeholder="Date" required>
                 </div>
                 <div class="form-group">
                     <label>Town</label>

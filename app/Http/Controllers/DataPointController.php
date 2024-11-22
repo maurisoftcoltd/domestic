@@ -81,19 +81,24 @@ class DataPointController extends Controller
         ])
         ->whereBetween('date', [$from, $to])
         ->get();
+        // dd($dataPoints);
 
         foreach($dataPoints as $dataPoint) {
-            $point = [
-                'value' => $dataPoint->reportedCases,
-                'latitude' => $dataPoint->latitude,
-                'longitude' => $dataPoint->longitude,
-                'href' => '#',
-                'tooltip' => [
-                    'content' => '<span style="font-weight:bold;">'. $dataPoint->villageName .'</span><br />Population : '. $dataPoint->population
-                ]
-            ];
+            if(array_key_exists($dataPoint->town->name, $data)){
+                $data[$dataPoint->town->name]['value'] += $dataPoint->reportedCases;
+            } else {
+                $point = [
+                    'value' => $dataPoint->reportedCases,
+                    'latitude' => $dataPoint->town->latitude,
+                    'longitude' => $dataPoint->town->longitude,
+                    'href' => '#',
+                    'tooltip' => [
+                        'content' => '<span style="font-weight:bold;">'. $dataPoint->town->name .'</span><br />Population : '. $dataPoint->town->population
+                    ]
+                ];
 
-            $data["$dataPoint->name"] = $point;
+                $data[$dataPoint->town->name] = $point;
+            }
         }
 
         return response()->json($data);
