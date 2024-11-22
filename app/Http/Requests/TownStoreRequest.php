@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DataPointStoreRequest extends FormRequest
+class TownStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,10 +20,10 @@ class DataPointStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date' => ['required', 'date'],
-            'town_id' => ['required', 'integer', 'exists:towns,id'],
-            'reportedCases' => ['required', 'integer'],
-            'activeStatus' => ['required'],
+            'name' => ['required', 'string'],
+            'latitude' => ['required', 'string'],
+            'longitude' => ['required', 'string'],
+            'population' => ['required', 'integer'],
         ];
     }
 }

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DataPointStoreRequest;
+use App\Http\Requests\DataPointUpdateRequest;
 use App\Models\DataPoint;
+use App\Models\Town;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,7 +23,9 @@ class DataPointController extends Controller
 
     public function create(Request $request): View
     {
-        return view('dataPoint.create');
+        return view('dataPoint.create',[
+            'towns' => Town::all()->sortBy('name'),
+        ]);
     }
 
     public function store(DataPointStoreRequest $request): RedirectResponse
@@ -30,12 +35,29 @@ class DataPointController extends Controller
         return redirect()->route('data-points.index');
     }
 
-    public function delete(Request $request): RedirectResponse
+    public function edit(DataPoint $data_point): View
     {
+        return view('dataPoint.edit', [
+            'dataPoint' => $data_point,
+            'towns' => Town::all()->sortBy('name'),
+        ]);
+    }
+
+    public function update(DataPointUpdateRequest $request, DataPoint $dataPoint): RedirectResponse
+    {
+        $dataPoint->update($request->validated());
+
         return redirect()->route('data-points.index');
     }
 
-    public function get_all_data_points() : JsonResponse
+    public function destroy(DataPoint $data_point): RedirectResponse
+    {
+        $data_point->delete();
+
+        return redirect()->route('data-points.index');
+    }
+
+    public function get_all_data_points(Request $request) : JsonResponse
     {
 
         // "town-91661": {
@@ -49,8 +71,16 @@ class DataPointController extends Controller
         //     },
         // },
 
+        $date_array = [];
+        $from = $request->input('from') ?? date('Y-m-d');
+        $to = $request->input('to') ?? date('Y-m-d');
         $data = [];
-        $dataPoints = DataPoint::where('activeStatus',1)->get();
+
+        $dataPoints = DataPoint::where([
+            'activeStatus' => 1
+        ])
+        ->whereBetween('date', [$from, $to])
+        ->get();
 
         foreach($dataPoints as $dataPoint) {
             $point = [

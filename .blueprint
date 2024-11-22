@@ -1,15 +1,24 @@
 created:
     - app/Http/Controllers/DataPointController.php
+    - app/Http/Controllers/TownController.php
     - database/factories/DataPointFactory.php
-    - database/migrations/2024_10_24_181748_create_data_points_table.php
+    - database/factories/TownFactory.php
+    - database/migrations/2024_11_22_124731_create_data_points_table.php
+    - database/migrations/2024_11_22_124732_create_towns_table.php
     - app/Models/DataPoint.php
+    - app/Models/Town.php
     - tests/Feature/Http/Controllers/DataPointControllerTest.php
+    - tests/Feature/Http/Controllers/TownControllerTest.php
     - app/Http/Requests/DataPointStoreRequest.php
+    - app/Http/Requests/TownStoreRequest.php
     - resources/views/dataPoint/create.blade.php
+    - resources/views/town/index.blade.php
+    - resources/views/town/create.blade.php
 updated:
     - routes/web.php
 skipped:
     - resources/views/dataPoint/index.blade.php
 models:
     User: { name: string, email: string, email_verified_at: 'timestamp nullable', password: string, remember_token: 'string:100 nullable' }
-    DataPoint: { name: string, latitude: string, longitude: string, reportedCases: integer, villageName: string, population: unsigned, activeStatus: boolean }
+    DataPoint: { name: string, town_id: foreign, reportedCases: integer, activeStatus: boolean }
+    Town: { name: string, latitude: string, longitude: string, population: integer }

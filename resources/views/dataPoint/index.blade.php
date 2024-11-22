@@ -2,62 +2,47 @@
 
 <h4 class="card-title">Data Points</h4>
 <a class="btn btn-success mb-4" href="{{ route('data-points.create') }}">New</a>
+
+@if($dataPoints->isNotEmpty())
 <table class="table">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Longitude</th>
+            <th>Date</th>
+            <th>Town</th>
             <th>Latitude</th>
+            <th>Longitude</th>
             <th>Reported Cases</th>
             <th>Active Status</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @forelse ($dataPoints as $dataPoint)
+        @foreach ($dataPoints as $dataPoint)
         <tr>
-            <td>{{ $dataPoint->name }}</td>
-            <td>{{ $dataPoint->latitude }}</td>
-            <td>{{ $dataPoint->longitude }}</td>
+            <td>{{ $dataPoint->date->toDateString() }}</td>
+            <td>{{ $dataPoint->town->name }}</td>
+            <td>{{ $dataPoint->town->latitude }}</td>
+            <td>{{ $dataPoint->town->longitude }}</td>
             <td>{{ $dataPoint->reportedCases }}</td>
             <td>{{ $dataPoint->activeStatus }}</td>
+            <td class="text-right">
+                <a href="{{ route('data-points.edit', ['data_point'=>$dataPoint->id]) }}" class="btn btn-warning">
+                    Edit
+                </a>
+                <form action="{{ route('data-points.destroy',$dataPoint->id) }}" method="POST" class="delete_form" style="display: inline;">
+                    @method('DELETE')
+                    {{ csrf_field() }}
+                    <button type="submit" class="btn btn-danger">
+                        Delete
+                    </button>
+                </form>
+            </td>
         </tr>
-        @empty
-        <p class="alert alert-info">There are no data points in the system</p>
-        @endforelse
+        @endforeach
     </tbody>
 </table>
-
-@include('partials.bottom')
-
-
-
-@include('partials.top')
-
-<h4 class="card-title">Data Points</h4>
-<a class="btn btn-success mb-4" href="{{ route('data-points.create') }}">New</a>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Longitude</th>
-            <th>Latitude</th>
-            <th>Reported Cases</th>
-            <th>Active Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        @forelse ($dataPoints as $dataPoint)
-        <tr>
-            <td>{{ $dataPoint->name }}</td>
-            <td>{{ $dataPoint->latitude }}</td>
-            <td>{{ $dataPoint->longitude }}</td>
-            <td>{{ $dataPoint->reportedCases }}</td>
-            <td>{{ $dataPoint->activeStatus }}</td>
-        </tr>
-        @empty
-        <p class="alert alert-info">There are no data points in the system</p>
-        @endforelse
-    </tbody>
-</table>
+@else
+<p class="alert alert-info">There are no data points in the system</p>
+@endif
 
 @include('partials.bottom')

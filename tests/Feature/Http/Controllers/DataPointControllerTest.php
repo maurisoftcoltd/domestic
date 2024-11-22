@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\DataPoint;
+use App\Models\Town;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
@@ -53,30 +54,21 @@ final class DataPointControllerTest extends TestCase
     public function store_saves_and_redirects(): void
     {
         $name = $this->faker->name();
-        $latitude = $this->faker->latitude();
-        $longitude = $this->faker->longitude();
+        $town = Town::factory()->create();
         $reportedCases = $this->faker->numberBetween(-10000, 10000);
-        $villageName = $this->faker->word();
-        $population = $this->faker->word();
         $activeStatus = $this->faker->boolean();
 
         $response = $this->post(route('data-points.store'), [
             'name' => $name,
-            'latitude' => $latitude,
-            'longitude' => $longitude,
+            'town_id' => $town->id,
             'reportedCases' => $reportedCases,
-            'villageName' => $villageName,
-            'population' => $population,
             'activeStatus' => $activeStatus,
         ]);
 
         $dataPoints = DataPoint::query()
             ->where('name', $name)
-            ->where('latitude', $latitude)
-            ->where('longitude', $longitude)
+            ->where('town_id', $town->id)
             ->where('reportedCases', $reportedCases)
-            ->where('villageName', $villageName)
-            ->where('population', $population)
             ->where('activeStatus', $activeStatus)
             ->get();
         $this->assertCount(1, $dataPoints);

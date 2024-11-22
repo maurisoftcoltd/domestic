@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DataPointStoreRequest extends FormRequest
+class TownUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,14 +16,17 @@ class DataPointStoreRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
+
         return [
-            'date' => ['required', 'date'],
-            'town_id' => ['required', 'integer', 'exists:towns,id'],
-            'reportedCases' => ['required', 'integer'],
-            'activeStatus' => ['required'],
+            'name' => ['required', 'string'],
+            'latitude' => ['required', 'string'],
+            'longitude' => ['required', 'string'],
+            'population' => ['required', 'integer'],
         ];
     }
 }

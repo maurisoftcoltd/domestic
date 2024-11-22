@@ -11,17 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_points', function (Blueprint $table) {
+        Schema::disableForeignKeyConstraints();
+
+        Schema::create('towns', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('latitude');
             $table->string('longitude');
-            $table->integer('reportedCases');
-            $table->string('villageName');
             $table->integer('population');
-            $table->boolean('activeStatus');
             $table->timestamps();
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('data_points');
+        Schema::dropIfExists('towns');
     }
 };

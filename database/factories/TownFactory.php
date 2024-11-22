@@ -4,17 +4,16 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\DataPoint;
 use App\Models\Town;
 
-class DataPointFactory extends Factory
+class TownFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = DataPoint::class;
+    protected $model = Town::class;
 
     /**
      * Define the model's default state.
@@ -23,9 +22,9 @@ class DataPointFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'town_id' => Town::factory(),
-            'reportedCases' => $this->faker->numberBetween(-10000, 10000),
-            'activeStatus' => $this->faker->boolean(),
+            'latitude' => $this->faker->latitude(),
+            'longitude' => $this->faker->longitude(),
+            'population' => $this->faker->numberBetween(-10000, 10000),
         ];
     }
 }
