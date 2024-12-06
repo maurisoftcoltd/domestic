@@ -60,16 +60,16 @@ $(function () {
                                 attrs: {
                                     fill: "#ffbd54",
                                 },
-                                label: data.days*.50 +' - '+data.days*.100,
+                                label: data.days*.50 +' - '+data.days*1,
                             },
                             {
                                 size: data.days*.25,
                                 type: "circle",
-                                min: data.days*.100,
+                                min: data.days*.1,
                                 attrs: {
                                     fill: "#ff5454",
                                 },
-                                label: data.days*.100 +'+',
+                                label: data.days*1 +'+',
                             },
                         ],
                     },
