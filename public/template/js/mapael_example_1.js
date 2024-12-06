@@ -34,47 +34,47 @@ $(function () {
                         title: "Trinidad Domestic Abuse Reports By City",
                         slices: [
                             {
-                                size: 5,
+                                size: data.days*.10,
                                 type: "circle",
-                                max: 10,
+                                max: data.days*.5,
                                 attrs: {
                                     fill: "#89ff72",
                                 },
-                                label: "< 10",
+                                label: "< " + data.days*.10,
                             },
                             {
-                                size: 15,
+                                size: data.days*.15,
                                 type: "circle",
-                                min: 10,
-                                max: 50,
+                                min: data.days*.10,
+                                max: data.days*.50,
                                 attrs: {
                                     fill: "#fffd72",
                                 },
-                                label: "10 - 50",
+                                label: data.days*.10 +' - '+data.days*.50,
                             },
                             {
-                                size: 20,
+                                size: data.days*.20,
                                 type: "circle",
-                                min: 50,
-                                max: 100,
+                                min: data.days*.50,
+                                max: data.days*.100,
                                 attrs: {
                                     fill: "#ffbd54",
                                 },
-                                label: "50 - 100",
+                                label: data.days*.50 +' - '+data.days*.100,
                             },
                             {
-                                size: 25,
+                                size: data.days*.25,
                                 type: "circle",
-                                min: 100,
+                                min: data.days*.100,
                                 attrs: {
                                     fill: "#ff5454",
                                 },
-                                label: "100+",
+                                label: data.days*.100 +'+',
                             },
                         ],
                     },
                 },
-                plots: data
+                plots: data.points
             });
         }
     });

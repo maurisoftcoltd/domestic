@@ -74,7 +74,9 @@ class DataPointController extends Controller
         $date_array = [];
         $from = $request->input('from') ?? date('Y-m-d');
         $to = $request->input('to') ?? date('Y-m-d');
+        $date_diff = strtotime($to) - strtotime($from);
         $data = [];
+        $data['days'] = round($date_diff / (60 * 60 * 24));
 
         $dataPoints = DataPoint::where([
             'activeStatus' => 1
@@ -97,7 +99,7 @@ class DataPointController extends Controller
                     ]
                 ];
 
-                $data[$dataPoint->town->name] = $point;
+                $data['points'][$dataPoint->town->name] = $point;
             }
         }
 
