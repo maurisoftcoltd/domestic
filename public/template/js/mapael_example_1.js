@@ -34,7 +34,7 @@ $(function () {
                         title: "Trinidad Domestic Abuse Reports By City",
                         slices: [
                             {
-                                size: data.days*.05,
+                                size: 5,
                                 type: "circle",
                                 max: data.days*.1,
                                 attrs: {
@@ -43,7 +43,7 @@ $(function () {
                                 label: "< " + Math.round(data.days*.1),
                             },
                             {
-                                size: data.days*.15,
+                                size: 15,
                                 type: "circle",
                                 min: data.days*.1,
                                 max: data.days*.5,
@@ -53,7 +53,7 @@ $(function () {
                                 label: Math.round(data.days*.1) +' - '+ Math.round(data.days*.5),
                             },
                             {
-                                size: data.days*.2,
+                                size: 20,
                                 type: "circle",
                                 min: data.days*.5,
                                 max: data.days*1,
@@ -63,7 +63,7 @@ $(function () {
                                 label: Math.round(data.days*.5) +' - '+ Math.round(data.days*1),
                             },
                             {
-                                size: data.days*.25,
+                                size: 25,
                                 type: "circle",
                                 min: data.days*1,
                                 attrs: {
