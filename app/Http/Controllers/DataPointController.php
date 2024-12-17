@@ -77,6 +77,7 @@ class DataPointController extends Controller
         $date_diff = strtotime($to) - strtotime($from);
         $data = [];
         $data['days'] = round($date_diff / (60 * 60 * 24));
+        $points = [];
 
         $dataPoints = DataPoint::where([
             'activeStatus' => 1
@@ -86,8 +87,8 @@ class DataPointController extends Controller
         // dd($dataPoints);
 
         foreach($dataPoints as $dataPoint) {
-            if(array_key_exists($dataPoint->town->name, $data)){
-                $data[$dataPoint->town->name]['value'] += $dataPoint->reportedCases;
+            if(array_key_exists($dataPoint->town->name, $points)){
+                $points[$dataPoint->town->name]['value'] += $dataPoint->reportedCases;
             } else {
                 $point = [
                     'value' => $dataPoint->reportedCases,
@@ -99,10 +100,12 @@ class DataPointController extends Controller
                     ]
                 ];
 
-                $data['points'][$dataPoint->town->name] = $point;
+                $points[$dataPoint->town->name] = $point;
             }
         }
 
+        $data['points'] = $points;
+        // dd($data);
         return response()->json($data);
     }
 }
